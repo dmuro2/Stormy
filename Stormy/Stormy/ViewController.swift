@@ -54,6 +54,7 @@ class ViewController: UIViewController {
                     self.precipitationLabel.text = "\(currentWeather.precipProbability)"
                     self.summaryLabel.text = "\(currentWeather.summary)"
                     
+                    //Stop refresh animation
                     self.refreshActivityIndicator.stopAnimating()
                     self.refreshActivityIndicator.hidden = true
                     self.refreshButton.hidden = false
@@ -63,6 +64,26 @@ class ViewController: UIViewController {
                 // shouldn't use a black box solution like this, because we can't see what data it contains and we can't easily update code if there are changes to the API. Best to create a Struct in this instance.
                 //                let currentWeatherDictionary: NSDictionary = weatherDictionary["currently"] as NSDictionary
                 
+            } else {
+                
+                let networkIssueController = UIAlertController(title: "Oh, Noooooo", message: "Connect yourself to the interwebs", preferredStyle: .Alert)
+                
+                let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                networkIssueController.addAction(cancelButton)
+                
+                let okButton = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                networkIssueController.addAction(okButton)
+                
+                
+                self.presentViewController(networkIssueController, animated: true, completion: nil)
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    
+                    //Stop refresh animation
+                    self.refreshActivityIndicator.stopAnimating()
+                    self.refreshActivityIndicator.hidden = true
+                    self.refreshButton.hidden = false
+                })
             }
             
             //            var urlContents = NSString(contentsOfURL: NSURL, encoding: UInt, error: NSErrorPointer)
