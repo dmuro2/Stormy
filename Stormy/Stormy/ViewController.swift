@@ -10,16 +10,28 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var iconView: UIImageView!
+    @IBOutlet weak var currentTimeLabel: UILabel!
+    @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var precipitationLabel: UILabel!
+    @IBOutlet weak var summaryLabel: UILabel!
+    @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var refreshActivityIndicator: UIActivityIndicatorView!
+    
+    
     // Add API access control — Public, Internal and Private access key
     private let apiKey = "fa9d2b8f7c88c76b57ed83b9bd842f35"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        // Get the weather from forecast.io for Alcatraz island
-//          let forecastURL = "https://api.forecast.io/forecast/fa9d2b8f7c88c76b57ed83b9bd842f35/37.8267,-122.423"
         
-        // Chop up the forecastURL into bite sized pieces
+        refreshActivityIndicator.hidden = true
+        getCurrentWeatherData()
+        
+    }
+    
+    func getCurrentWeatherData() -> Void {
         let baseURL = NSURL(string: "https://api.forecast.io/forecast/\(apiKey)/")
         let forecastURL = NSURL(string: "37.8267,-122.423", relativeToURL: baseURL)
         
@@ -33,23 +45,32 @@ class ViewController: UIViewController {
                 let weatherDictionary: NSDictionary = NSJSONSerialization.JSONObjectWithData(dataObject!, options: nil, error: nil) as NSDictionary
                 
                 let currentWeather = Current(weatherDictionary: weatherDictionary)
-                println(currentWeather.currentTime)
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.temperatureLabel.text = "\(currentWeather.temperature)"
+                    self.iconView.image = currentWeather.icon!
+                    self.currentTimeLabel.text = "At \(currentWeather.currentTime!) it is"
+                    self.humidityLabel.text = "\(currentWeather.humidity)"
+                    self.precipitationLabel.text = "\(currentWeather.precipProbability)"
+                    self.summaryLabel.text = "\(currentWeather.summary)"
+                    
+                    self.refreshActivityIndicator.stopAnimating()
+                    self.refreshActivityIndicator.hidden = true
+                    self.refreshButton.hidden = false
+                })
                 
                 
                 // shouldn't use a black box solution like this, because we can't see what data it contains and we can't easily update code if there are changes to the API. Best to create a Struct in this instance.
-//                let currentWeatherDictionary: NSDictionary = weatherDictionary["currently"] as NSDictionary
+                //                let currentWeatherDictionary: NSDictionary = weatherDictionary["currently"] as NSDictionary
                 
             }
             
-//            var urlContents = NSString(contentsOfURL: NSURL, encoding: UInt, error: NSErrorPointer)
-//            println(urlContents)
+            //            var urlContents = NSString(contentsOfURL: NSURL, encoding: UInt, error: NSErrorPointer)
+            //            println(urlContents)
             
         })
         
         downloadTask.resume()
-        
-        // closures: { (parameters) -> return type in statements }\
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,6 +78,14 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func refresh() {
+        
+        getCurrentWeatherData()
+        
+        refreshButton.hidden = true
+        refreshActivityIndicator.hidden = false
+        refreshActivityIndicator.startAnimating()
+    }
 
 }
 

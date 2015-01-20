@@ -72,20 +72,41 @@
                                 <color key="textColor" red="1" green="0.99997437" blue="0.99999129769999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hxJ-5N-yMx">
+                                <rect key="frame" x="140" y="28" width="43" height="43"/>
+                                <state key="normal" image="refresh">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="refresh" destination="vXZ-lx-hvc" eventType="touchUpInside" id="GSk-Og-YiU"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Cwv-BX-3XT">
+                                <rect key="frame" x="150" y="40" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="degree" translatesAutoresizingMaskIntoConstraints="NO" id="iY0-Rd-zfa">
+                                <rect key="frame" x="268" y="206" width="36" height="36"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.4140780101084619" green="0.63153692449220777" blue="0.88627450980000011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Ege-2E-dbY" secondAttribute="bottom" constant="177" id="41t-J6-nvq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6Ng-OE-h04" secondAttribute="trailing" constant="36" id="4Wu-0v-YF5"/>
                             <constraint firstItem="UDd-cZ-zYa" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="89" id="6gB-1S-D99"/>
+                            <constraint firstItem="Cwv-BX-3XT" firstAttribute="centerX" secondItem="hxJ-5N-yMx" secondAttribute="centerX" constant="-1.5" id="7Z5-5J-Zth"/>
                             <constraint firstItem="tZ3-m6-Qhb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="DNt-6O-6cn"/>
                             <constraint firstAttribute="centerX" secondItem="UDd-cZ-zYa" secondAttribute="centerX" constant="-32.5" id="Dl0-51-hi8"/>
+                            <constraint firstItem="UDd-cZ-zYa" firstAttribute="top" secondItem="hxJ-5N-yMx" secondAttribute="bottom" constant="38" id="FFF-F7-D2T"/>
                             <constraint firstAttribute="centerY" secondItem="4eT-Q1-KGd" secondAttribute="centerY" id="GMd-Ch-gXT"/>
+                            <constraint firstItem="Cwv-BX-3XT" firstAttribute="centerY" secondItem="hxJ-5N-yMx" secondAttribute="centerY" constant="0.5" id="H9Y-PW-Te0"/>
                             <constraint firstItem="yXi-Wb-XaW" firstAttribute="top" secondItem="tZ3-m6-Qhb" secondAttribute="bottom" constant="10" id="Nve-ld-YL6"/>
                             <constraint firstAttribute="centerX" secondItem="3fJ-ji-YsC" secondAttribute="centerX" constant="-0.5" id="QeL-9f-IHe"/>
                             <constraint firstItem="yXi-Wb-XaW" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="47" id="Tfd-WW-kDj"/>
+                            <constraint firstItem="iY0-Rd-zfa" firstAttribute="leading" secondItem="4eT-Q1-KGd" secondAttribute="trailing" constant="-18" id="VmT-QL-hNv"/>
+                            <constraint firstItem="4eT-Q1-KGd" firstAttribute="top" secondItem="iY0-Rd-zfa" secondAttribute="bottom" constant="-44" id="WqM-pi-NEj"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="tZ3-m6-Qhb" secondAttribute="bottom" constant="177" id="cDw-HO-jto"/>
                             <constraint firstItem="6Ng-OE-h04" firstAttribute="top" secondItem="Ege-2E-dbY" secondAttribute="bottom" constant="10" id="d6z-HX-hTH"/>
+                            <constraint firstAttribute="centerX" secondItem="hxJ-5N-yMx" secondAttribute="centerX" constant="-1.5" id="dVE-E1-R2F"/>
                             <constraint firstAttribute="centerX" secondItem="4eT-Q1-KGd" secondAttribute="centerX" constant="-0.5" id="dZP-fL-uiC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ege-2E-dbY" secondAttribute="trailing" constant="40" id="gER-o3-u0b"/>
                             <constraint firstItem="UDd-cZ-zYa" firstAttribute="leading" secondItem="d5W-wj-SPp" secondAttribute="trailing" constant="5" id="iMl-k1-Ptg"/>
@@ -95,6 +116,16 @@
                             <constraint firstAttribute="centerX" secondItem="0UI-DI-X8n" secondAttribute="centerX" constant="-0.5" id="zST-be-qmM"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="currentTimeLabel" destination="3fJ-ji-YsC" id="0TP-O8-ORY"/>
+                        <outlet property="humidityLabel" destination="yXi-Wb-XaW" id="lqq-B0-Yfg"/>
+                        <outlet property="iconView" destination="d5W-wj-SPp" id="fue-IO-jcD"/>
+                        <outlet property="precipitationLabel" destination="6Ng-OE-h04" id="i6z-5j-tL1"/>
+                        <outlet property="refreshActivityIndicator" destination="Cwv-BX-3XT" id="SDI-3w-dDN"/>
+                        <outlet property="refreshButton" destination="hxJ-5N-yMx" id="sFy-zf-xKW"/>
+                        <outlet property="summaryLabel" destination="0UI-DI-X8n" id="oMb-Gg-bkS"/>
+                        <outlet property="temperatureLabel" destination="4eT-Q1-KGd" id="ptB-cX-kU2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
@@ -103,6 +134,8 @@
     </scenes>
     <resources>
         <image name="cloudy-night" width="46" height="43"/>
+        <image name="degree" width="36" height="36"/>
+        <image name="refresh" width="43" height="43"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
