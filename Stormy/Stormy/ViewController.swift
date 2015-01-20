@@ -23,8 +23,14 @@ class ViewController: UIViewController {
         let baseURL = NSURL(string: "https://api.forecast.io/forecast/\(apiKey)/")
         let forecastURL = NSURL(string: "37.8267,-122.423", relativeToURL: baseURL)
         
-        let weatherData = NSData(contentsOfURL: forecastURL!, options: nil, error: nil)
-        println(weatherData)
+        // Create a session manager. A Singleton (the sharedSession() creates one reference to an instance, no matter where or how many times it's called. Use with caution.
+        let sharedSession = NSURLSession.sharedSession()
+        let downloadTask: NSURLSessionDownloadTask = sharedSession.downloadTaskWithURL(forecastURL!, completionHandler: { (location: NSURL!, response: NSURLResponse!, error: NSError!) -> Void in
+            println(response)
+        })
+        downloadTask.resume()
+        
+        // closures: { (parameters) -> return type in statements }\
         
     }
 
