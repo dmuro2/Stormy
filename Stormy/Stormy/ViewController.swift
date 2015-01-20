@@ -32,6 +32,9 @@ class ViewController: UIViewController {
                 let dataObject = NSData(contentsOfURL: location)
                 let weatherDictionary: NSDictionary = NSJSONSerialization.JSONObjectWithData(dataObject!, options: nil, error: nil) as NSDictionary
                 
+                let currentWeather = Current(weatherDictionary: weatherDictionary)
+                println(currentWeather.currentTime)
+                
                 
                 // shouldn't use a black box solution like this, because we can't see what data it contains and we can't easily update code if there are changes to the API. Best to create a Struct in this instance.
 //                let currentWeatherDictionary: NSDictionary = weatherDictionary["currently"] as NSDictionary
