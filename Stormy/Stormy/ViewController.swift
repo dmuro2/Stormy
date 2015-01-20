@@ -26,8 +26,21 @@ class ViewController: UIViewController {
         // Create a session manager. A Singleton (the sharedSession() creates one reference to an instance, no matter where or how many times it's called. Use with caution.
         let sharedSession = NSURLSession.sharedSession()
         let downloadTask: NSURLSessionDownloadTask = sharedSession.downloadTaskWithURL(forecastURL!, completionHandler: { (location: NSURL!, response: NSURLResponse!, error: NSError!) -> Void in
-            println(response)
+            
+            if (error == nil) {
+                
+                let dataObject = NSData(contentsOfURL: location)
+                let weatherDictionary: NSDictionary = NSJSONSerialization.JSONObjectWithData(dataObject!, options: nil, error: nil) as NSDictionary
+                
+                println(weatherDictionary)
+                
+            }
+            
+//            var urlContents = NSString(contentsOfURL: NSURL, encoding: UInt, error: NSErrorPointer)
+//            println(urlContents)
+            
         })
+        
         downloadTask.resume()
         
         // closures: { (parameters) -> return type in statements }\
